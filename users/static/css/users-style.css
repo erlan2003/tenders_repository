@@ -1,0 +1,42 @@
+
+.users-container {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    background-color: #fdfdfd;
+    font-family: 'Segoe UI', sans-serif;
+    height: 90%;
+    overflow-y: auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f0f0f0;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+.no-users {
+    text-align: center;
+    color: #888;
+    padding: 20px;
+}

@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+{% block title %}Пользователи{% endblock %}
+
+{% block content %}
+<form method="get" style="margin-bottom: 20px; text-align: center;">
+    <input
+        type="text"
+        name="q"
+        placeholder="Поиск по фамилии, имени или имени пользователя"
+        value="{{ request.GET.q|default:'' }}"
+        aria-label="Поиск по фамилии, имени или имени пользователя"
+        style="padding: 6px 10px; border-radius: 5px; border: 1.5px solid #ccc; width: 280px;"
+    />
+
+    <select name="sort" aria-label="Сортировка" style="padding: 6px 10px; border-radius: 5px; border: 1.5px solid #ccc; margin-left: 10px;">
+        <option value="">Сортировка по умолчанию</option>
+        <option value="id" {% if request.GET.sort == 'id' %}selected{% endif %}>ID ↑</option>
+        <option value="-id" {% if request.GET.sort == '-id' %}selected{% endif %}>ID ↓</option>
+        <option value="last_name" {% if request.GET.sort == 'last_name' %}selected{% endif %}>Фамилия ↑</option>
+        <option value="-last_name" {% if request.GET.sort == '-last_name' %}selected{% endif %}>Фамилия ↓</option>
+        <option value="first_name" {% if request.GET.sort == 'first_name' %}selected{% endif %}>Имя ↑</option>
+        <option value="-first_name" {% if request.GET.sort == '-first_name' %}selected{% endif %}>Имя ↓</option>
+        <option value="username" {% if request.GET.sort == 'username' %}selected{% endif %}>Имя пользователя ↑</option>
+        <option value="-username" {% if request.GET.sort == '-username' %}selected{% endif %}>Имя пользователя ↓</option>
+        <option value="email" {% if request.GET.sort == 'email' %}selected{% endif %}>Почта ↑</option>
+        <option value="-email" {% if request.GET.sort == '-email' %}selected{% endif %}>Почта ↓</option>
+        <option value="date_joined" {% if request.GET.sort == 'date_joined' %}selected{% endif %}>Дата регистрации ↑</option>
+        <option value="-date_joined" {% if request.GET.sort == '-date_joined' %}selected{% endif %}>Дата регистрации ↓</option>
+    </select>
+
+    <button type="submit" style="padding: 6px 16px; margin-left: 10px; border-radius: 6px; background-color: #007bff; color: white; border: none; cursor: pointer;">
+        Поиск / Сортировка
+    </button>
+</form>
+
+<div class="users-container">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Имя пользователя</th>
+                <th>Почта</th>
+                <th>Дата регистрации</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="no-users">Нет пользователей</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
