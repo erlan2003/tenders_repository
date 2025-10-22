@@ -368,22 +368,6 @@
 
         </nav>
     </div>
-    <div class="auth-section">
-        {% if user.is_authenticated %}
-            <form method="POST" action="{% url 'logout' %}?next=/" class="auth-form">
-                {% csrf_token %}
-                <button type="submit" class="auth-button">
-                    <img src="../static/img/logout-icon.png" alt="Logout" class="auth-icon">
-                    Выйти
-                </button>
-            </form>
-        {% else %}
-            <a href="{% url 'login' %}" class="auth-link">
-                <img src="../static/img/login-icon.png" alt="Login" class="auth-icon">
-                Войти
-            </a>
-        {% endif %}
-    </div>
 </div>
 
 <div class="main">
@@ -395,54 +379,54 @@
                 {{ user.first_name|slice:":1"|upper }}
             </div>
             {{ user.first_name }} {{ user.last_name }}
-        </div>        
+        </div> 
+</form>
+        {% else %}
+            <a href="{% url 'login' %}">Войти</a>       
         {% endif %}
     </div>
     <div class="content">
-        <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered {% if donor %}modal-lg{% else %}modal-md{% endif %}"> 
-              <div class="modal-content">
-                <div class="modal-header">
-                  <div class="d-flex align-items-center">
-                    <i class="bi bi-person-circle"></i>
-                    <h5 class="modal-title" id="profileModalLabel">Профиль пользователя</h5>
-                  </div>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                </div>
-                <div class="modal-body">
-                  <form method="POST" action="{% url 'edit_profile' %}">
-                    {% csrf_token %}
-                    <div class="row">
-                      <div class="{% if donor %}col-md-6{% else %}col-12{% endif %}">
-                        <h6>Данные пользователя</h6>
-                        <div class="mb-3">
-                          <label for="username" class="form-label">Имя пользователя</label>
-                          <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" disabled>
-                        </div>
-                        <div class="mb-3">
-                          <label for="first_name" class="form-label">Имя</label>
-                          <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
-                        </div>
-                        <div class="mb-3">
-                          <label for="last_name" class="form-label">Фамилия</label>
-                          <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
-                        </div>
-                        <div class="mb-3">
-                          <label for="email" class="form-label">Email</label>
-                          <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
-                        </div>
-                      </div>
-                    </div>
-          
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+       <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered {% if donor %}modal-lg{% else %}modal-md{% endif %}">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-person-circle me-2"></i>
+          <h5 class="modal-title" id="profileModalLabel">Профиль</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <strong>ФИО:</strong>
+          <div class="form-control" readonly>{{ user.full_name }}</div>
+        </div>
+        <div class="mb-3">
+          <strong>Почта:</strong>
+          <div class="form-control" readonly>{{ user.email }}</div>
+        </div>
+        <div class="mb-3">
+          <strong>Номер телефона:</strong>
+          <div class="form-control" readonly>{{ user.phone_number }}</div>
+        </div>
+        <div class="mb-3">
+          <strong>Наименование организации:</strong>
+          <div class="form-control" readonly>{{ user.organization }}</div>
+        </div>
+        <div class="mb-3">
+          <strong>Роль:</strong>
+          <div class="form-control" readonly>{{ user.role }}</div>
+        </div>
+
+        <form method="post" action="{% url 'logout' %}" class="text-center mt-4">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger px-5">Выйти</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
           
           
           
